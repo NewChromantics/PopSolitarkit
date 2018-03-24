@@ -5,6 +5,7 @@ Obj/
 UnityGenerated/
 Library/
 .vs/
+[bB]uild/
 
 # Visual Studio / MonoDevelop generated #
 # ===================================== #

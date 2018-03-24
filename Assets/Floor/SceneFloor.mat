@@ -19,7 +19,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - CheckSize: 1
+    - CheckSize: 0.1
     - FloorY: 0
     - Force_FloorY: 1
     m_Colors:

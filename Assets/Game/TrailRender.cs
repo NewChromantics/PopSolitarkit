@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrailRender : MonoBehaviour {
 
 	List<Matrix4x4> TrailPositions;
-	[Range(0.001f, 1)]
+	[Range(0.001f, 0.1f)]
 	public float MinSnapshotDistance = 1;
 
 	public bool ShowDebug = false;

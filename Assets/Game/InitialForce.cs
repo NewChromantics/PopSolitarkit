@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InitialForce : MonoBehaviour {
 
-
+	[Range(0, 9.8f)]
+	public float GravityForce = 9.8f;
 
 	public static Vector2 AngleRadianToVector2(float radian, float Length = 1)
 	{
@@ -24,6 +25,7 @@ public class InitialForce : MonoBehaviour {
 
 	[Range(0, 300)]
 	public float VerticalForceStrength = 1;
+
 
 	public ForceMode AddForceMode;
 
@@ -69,6 +71,9 @@ public class InitialForce : MonoBehaviour {
 
 	void OnEnable()
 	{
+		Debug.Log(Physics.gravity);
+		Physics.gravity = new Vector3(0, -GravityForce, 0);
+
 		var rb = GetComponent<Rigidbody>();
 		//rb.AddForce(WorldForceVector * Time.fixedDeltaTime, AddForceMode);
 		rb.isKinematic = false;
@@ -77,9 +82,10 @@ public class InitialForce : MonoBehaviour {
 
 	void Update()
 	{
-		if (AddOnce)
-			return;
-
-		OnEnable();
+		if (!AddOnce)
+		{
+			OnEnable();
+		}
 	}
+
 }

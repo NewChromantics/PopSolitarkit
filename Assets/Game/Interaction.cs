@@ -12,6 +12,9 @@ public class Interaction : MonoBehaviour {
 	public InitialForce Template;
 	bool DoneFirstCard = false;
 
+	[Range(-180, 180)]
+	public float RandomAngleDeviation = 5;
+
 	void InitTemplate()
 	{
 		//	todo: handle when not direct decendent of camera
@@ -39,7 +42,7 @@ public class Interaction : MonoBehaviour {
 	{
 		bool EnablePhysics = true;
 		var NewCard = GameObject.Instantiate(Template);
-		NewCard.ForceAngle = 180 + Random.Range(-45, 45);
+		NewCard.ForceAngle = 180 + Random.Range(-RandomAngleDeviation, RandomAngleDeviation);
 		NewCard.enabled = EnablePhysics;
 		NewCard.gameObject.GetComponent<TrailRender>().enabled = true;
 		var SpawnPos = SpawnParent.localToWorldMatrix.MultiplyPoint(SpawnFromCameraPosition);
