@@ -20,11 +20,17 @@ public class InitialForce : MonoBehaviour {
 
 	[Range(-180, 180)]
 	public float ForceAngle = 0;
-	[Range(0, 100)]
-	public float ForceStrength = 1;
+	[Range(0, 10)]
+	public float ForceStrengthMin = 1;
+	[Range(0, 10)]
+	public float ForceStrengthMax = 1;
+	public float ForceStrength { get { return Random.Range(ForceStrengthMin, ForceStrengthMax); } }
 
-	[Range(0, 300)]
-	public float VerticalForceStrength = 1;
+	[Range(0, 10)]
+	public float VerticalForceStrengthMin = 1;
+	[Range(0, 10)]
+	public float VerticalForceStrengthMax = 1;
+	public float VerticalForceStrength { get { return Random.Range(VerticalForceStrengthMin, VerticalForceStrengthMax); } }
 
 
 	public ForceMode AddForceMode;

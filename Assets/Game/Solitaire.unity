@@ -434,8 +434,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GravityForce: 0.7
   ForceAngle: 180
-  ForceStrength: 1
-  VerticalForceStrength: 1.2
+  ForceStrengthMin: 0.8
+  ForceStrengthMax: 1.2
+  VerticalForceStrengthMin: 0.8
+  VerticalForceStrengthMax: 1.4
   AddForceMode: 0
   AddOnce: 1
   GizmoSize: 0.46
@@ -681,11 +683,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4787822665528772, guid: e26bdd445126c4d0784c36bc4e43068e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.229
       objectReference: {fileID: 0}
     - target: {fileID: 4787822665528772, guid: e26bdd445126c4d0784c36bc4e43068e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 4787822665528772, guid: e26bdd445126c4d0784c36bc4e43068e, type: 2}
       propertyPath: m_LocalRotation.x
