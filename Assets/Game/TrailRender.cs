@@ -70,6 +70,8 @@ public class TrailRender : MonoBehaviour {
 		var mr = GetComponent<MeshRenderer>();
 		var mat = mr.sharedMaterial;
 
+		//	gr: limit to 1023
+		//	when > 1000, add fricton so card stops
 		Graphics.DrawMeshInstanced( mesh, 0, mat, TrailPositions.ToArray() );
 	}
 

@@ -4,54 +4,69 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour {
 
-	public bool PauseFirstCard = true;
+	public Transform SpawnParent { get { return Camera.main.transform; }}
+
+	public Vector3 SpawnFromCameraPosition;
+	public Quaternion SpawnFromCameraRotation;
+
 	public InitialForce Template;
 	bool DoneFirstCard = false;
-	InitialForce FirstCard = null;
 
+	void InitTemplate()
+	{
+		//	todo: handle when not direct decendent of camera
+		if (Template.transform.parent != SpawnParent)
+			throw new System.Exception("Expecting template to be child of spawn parent");
+
+		SpawnFromCameraPosition = Template.transform.localPosition;
+		SpawnFromCameraRotation = Template.transform.localRotation;
+		Template.enabled = false;
+		Template.gameObject.GetComponent<TrailRender>().enabled = false;
+	}
+
+	void TriggerFirstCard()
+	{
+		Template.gameObject.SetActive(false);
+		TriggerNextCard();
+	}
 
 	void TriggerNextCard()
 	{
-		if (!PauseFirstCard)
-			DoneFirstCard = true;
-
-		if (!DoneFirstCard)
-		{
-			DoneFirstCard = true;
-			FirstCard = CreateNewCard(false);
-			return;
-		}
-
-		if (FirstCard != null)
-		{
-			FirstCard.enabled = true;
-			FirstCard = null;
-			return;
-		}
-
-		CreateNewCard(true);
+		CreateNewCard();
 	}
 
-	InitialForce CreateNewCard(bool EnablePhysics)
+	InitialForce CreateNewCard()
 	{
+		bool EnablePhysics = true;
 		var NewCard = GameObject.Instantiate(Template);
-		NewCard.ForceAngle = Random.Range(-180, 180);
+		NewCard.ForceAngle = 180 + Random.Range(-45, 45);
 		NewCard.enabled = EnablePhysics;
+		NewCard.gameObject.GetComponent<TrailRender>().enabled = true;
+		var SpawnPos = SpawnParent.localToWorldMatrix.MultiplyPoint(SpawnFromCameraPosition);
+		var SpawnRot = SpawnParent.rotation * SpawnFromCameraRotation;
+		NewCard.transform.position = SpawnPos;
+		NewCard.transform.rotation = SpawnRot;
 		NewCard.gameObject.SetActive(true);
 		return NewCard;
 	}
 
 	void OnEnable()
 	{
-		Template.gameObject.SetActive(false);
-		TriggerNextCard();
+		InitTemplate();
 	}
 
 	void Update () {
 
 		if ( Input.GetMouseButtonDown(0) )
 		{
-			TriggerNextCard();
+			if (!DoneFirstCard)
+			{
+				TriggerFirstCard();
+			}
+			else
+			{
+				TriggerNextCard();
+			}
 		}
 
 	}
